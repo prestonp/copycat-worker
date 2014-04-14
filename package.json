@@ -1,0 +1,12 @@
+{
+  "name": "copycat-worker",
+  "version": "0.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha test"
+  , "copy": "phantomjs copier.js"
+  },
+  "author": "Preston Pham",
+  "license": "MIT"
+}
