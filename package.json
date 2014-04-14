@@ -5,8 +5,11 @@
   "main": "app.js",
   "scripts": {
     "test": "mocha test"
-  , "copy": "phantomjs copier.js"
   },
   "author": "Preston Pham",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "redis": "~0.10.1",
+    "colors": "~0.6.2"
+  }
 }
