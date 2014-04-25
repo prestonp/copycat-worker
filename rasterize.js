@@ -41,6 +41,7 @@ if (system.args.length < 3 || system.args.length > 5) {
         } else {
             window.setTimeout(function () {
                 page.render(output);
+                console.log('Saved ' + output);
                 phantom.exit();
             }, 200);
         }
