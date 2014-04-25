@@ -4,9 +4,12 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "mocha test"
-  , "copy": "phantomjs copier.js"
+    "test": "mocha test",
+    "copy": "phantomjs copier.js"
   },
   "author": "Preston Pham",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "base62": "^0.1.1"
+  }
 }
