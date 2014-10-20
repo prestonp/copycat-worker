@@ -4,13 +4,15 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "start": "node app",
     "test": "mocha test"
   },
   "author": "Preston Pham",
   "license": "MIT",
   "dependencies": {
-    "base62": "^0.1.1"
-    "redis": "~0.10.1",
-    "colors": "~0.6.2"
+    "base62": "^0.1.1",
+    "colors": "~0.6.2",
+    "pg": "^3.6.0",
+    "redis": "~0.10.1"
   }
 }
