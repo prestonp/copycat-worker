@@ -9,6 +9,7 @@ var client = redis.createClient();
 var spawn = require('child_process').spawn;
 var colors = require('colors');
 var base62 = require('base62');
+var db = require('./db');
 
 var worker = function(opts) {
   opts = opts || {};
@@ -16,14 +17,20 @@ var worker = function(opts) {
 };
 
 worker.prototype.getFilename = function(id) {
-  return config.outputPath + base62.encode(id) + config.fileExt;
+  return base62.encode(id) + config.fileExt;
+};
+
+worker.prototype.getFilePath = function(filename) {
+  return config.outputPath + filename;
 };
 
 worker.prototype.tick = function() {
-  client.blpop(config.queue, config.timeout, this.render);
+  client.blpop(config.queue, config.timeout, this.render.bind(this));
 };
 
 worker.prototype.render = function(err, res) {
+  var self = this;
+
   if (err) {
     throw new Error('Error:', err);
   }
@@ -37,12 +44,16 @@ worker.prototype.render = function(err, res) {
   }
 
   var filename = this.getFilename(data.id);
-  var args = ['rasterize.js', data.url, filename];
+  var filePath = this.getFilePath(filename);
+  var args = ['rasterize.js', data.url, filePath];
   var phantom  = spawn('phantomjs', args);
 
   phantom.on('close', function (code) {
     if ( code === 0 ) {
-      this.log(('Rendered ' + data.url + ' to ' + filename).green);
+      self.log(('Rendered ' + data.url + ' to ' + filename).green);
+      db.query('update images set status = \'complete\', filename = $1 where id = $2', [filename, data.id], function(err, rows, result) {
+        if (err) self.log('Error:', err);
+      });
     } else {
       this.log(('Error rendering ' + data.url).red);
     }

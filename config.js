@@ -4,7 +4,7 @@ module.exports = {
 , outputPath: '/Users/preston/projects/copycat/public/img/'
 , fileExt: '.png'
 , pg: {
-    conStr: 'postgresql://preston@localhost:5432/copycat'
+    connStr: 'postgresql://preston@localhost:5432/copycat'
   , name: 'copycat'
   }
 };
